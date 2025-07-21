@@ -165,19 +165,17 @@ class InverseLR(optim.lr_scheduler._LRScheduler):
             Default: 0.
         min_lr (float): The minimum learning rate. Default: 0.
         last_epoch (int): The index of last epoch. Default: -1.
-        verbose (bool): If ``True``, prints a message to stdout for
-            each update. Default: ``False``.
     """
 
     def __init__(self, optimizer, inv_gamma=1., power=1., warmup=0., min_lr=0.,
-                 last_epoch=-1, verbose=False):
+                 last_epoch=-1):
         self.inv_gamma = inv_gamma
         self.power = power
         if not 0. <= warmup < 1:
             raise ValueError('Invalid value for warmup')
         self.warmup = warmup
         self.min_lr = min_lr
-        super().__init__(optimizer, last_epoch, verbose)
+        super().__init__(optimizer, last_epoch)
 
     def get_lr(self):
         if not self._get_lr_called_within_step:
@@ -206,19 +204,17 @@ class ExponentialLR(optim.lr_scheduler._LRScheduler):
             Default: 0.
         min_lr (float): The minimum learning rate. Default: 0.
         last_epoch (int): The index of last epoch. Default: -1.
-        verbose (bool): If ``True``, prints a message to stdout for
-            each update. Default: ``False``.
     """
 
     def __init__(self, optimizer, num_steps, decay=0.5, warmup=0., min_lr=0.,
-                 last_epoch=-1, verbose=False):
+                 last_epoch=-1):
         self.num_steps = num_steps
         self.decay = decay
         if not 0. <= warmup < 1:
             raise ValueError('Invalid value for warmup')
         self.warmup = warmup
         self.min_lr = min_lr
-        super().__init__(optimizer, last_epoch, verbose)
+        super().__init__(optimizer, last_epoch)
 
     def get_lr(self):
         if not self._get_lr_called_within_step:
@@ -242,15 +238,13 @@ class ConstantLRWithWarmup(optim.lr_scheduler._LRScheduler):
         warmup (float): Exponential warmup factor (0 <= warmup < 1, 0 to disable)
             Default: 0.
         last_epoch (int): The index of last epoch. Default: -1.
-        verbose (bool): If ``True``, prints a message to stdout for
-            each update. Default: ``False``.
     """
 
-    def __init__(self, optimizer, warmup=0., last_epoch=-1, verbose=False):
+    def __init__(self, optimizer, warmup=0., last_epoch=-1):
         if not 0. <= warmup < 1:
             raise ValueError('Invalid value for warmup')
         self.warmup = warmup
-        super().__init__(optimizer, last_epoch, verbose)
+        super().__init__(optimizer, last_epoch)
 
     def get_lr(self):
         if not self._get_lr_called_within_step:
